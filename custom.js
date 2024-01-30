@@ -15,17 +15,15 @@ function handleFormSubmit(event) {
 
   axios.post("https://crudcrud.com/api/e0b757ed1a504d319c32150b997a42ec/appointmentData", user)
   .then((response) => {
-    showNewUserOnScreen(response.data)
+    addUserToList(response.data)
     //console.log(response)
   
   })
   
   .catch((err) => {
-    console.log(err)
+    console.error(err)
   })
 
-  // Add user to the list
-  addUserToList(user);
 
   // Clear form fields
   document.getElementById('username').value = '';

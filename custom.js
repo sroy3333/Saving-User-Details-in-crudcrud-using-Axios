@@ -1,29 +1,21 @@
+document.addEventListener("DOMContentLoaded", function () {
+  // Load existing user details from the API using the GET method
+  const data = axios.get("https://crudcrud.com/api/adc55410ca5b43deba1cff98d0638f43/appointmentData")
+    .then(response => {
+     // console.log(response);
+
+      const existingUsers = response.data;
+      existingUsers.forEach(user => {
+        addUserToList(user);
+      });
+    })
+    .catch(error => console.error('Error fetching existing users:', error));
+  console.log(data)
+});
+  
+
 function handleFormSubmit(event) {
   event.preventDefault();
-
-  // Get form values
-  const username = document.getElementById('username').value;
-  const email = document.getElementById('email').value;
-  const phone = document.getElementById('phone').value;
-
-  // Create user object
-  const user = {
-    username,
-    email,
-    phone
-  };
-
-  axios.post("https://crudcrud.com/api/e0b757ed1a504d319c32150b997a42ec/appointmentData", user)
-  .then((response) => {
-    addUserToList(response.data)
-    //console.log(response)
-  
-  })
-  
-  .catch((err) => {
-    console.error(err)
-  })
-
 
   // Clear form fields
   document.getElementById('username').value = '';
@@ -45,9 +37,9 @@ function addUserToList(user) {
   const deleteButton = document.createElement('button');
   deleteButton.textContent = 'Delete';
   deleteButton.onclick = function () {
-    //Remove li element from the screen and local storage
+    // Remove li element from the screen and local storage
     li.remove();
-    //removeUserFromLocalStorage(user);
+    // removeUserFromLocalStorage(user);
   };
 
   // Create edit button
@@ -61,7 +53,7 @@ function addUserToList(user) {
 
     // Remove user details from the screen and local storage
     li.remove();
-    //removeUserFromLocalStorage(user);
+    // removeUserFromLocalStorage(user);
   };
 
   // Append text node, delete button, and edit button to li
@@ -71,20 +63,4 @@ function addUserToList(user) {
 
   // Append li to the user list
   document.getElementById('userList').appendChild(li);
-
-  // Save user to local storage
-  //saveUserToLocalStorage(user);
 }
-
-// Function to save user to local storage
-//function saveUserToLocalStorage(user) {
-  //let users = JSON.parse(localStorage.getItem('users')) || [];
-  //users.push(user);
-  // localStorage.setItem('users', JSON.stringify(users));
-//}
-
-// Function to remove user from local storage
-//function removeUserFromLocalStorage(user) {
-//  let users = JSON.parse(localStorage.getItem('users')) || [];
-//  users = users.filter(u => u.email !== user.email);
-// localStorage.setItem('users', JSON.stringify(users));
